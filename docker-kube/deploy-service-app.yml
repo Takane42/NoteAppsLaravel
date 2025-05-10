@@ -19,7 +19,8 @@ spec:
     spec:
       containers:
         - name: note-app
-          image: ghcr.io/takane42/noteappslaravel:1.0
+          image: ghcr.io/takane42/noteappslaravel:latest
+          imagePullPolicy: Never
           ports:
             - containerPort: 80
           resources:

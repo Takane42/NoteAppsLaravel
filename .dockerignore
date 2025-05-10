@@ -6,7 +6,7 @@
 
 **/.classpath
 **/.dockerignore
-**/.env
+**/.env*
 **/.git
 **/.gitignore
 **/.gitattributes
@@ -38,6 +38,8 @@
 .env.example
 LICENSE
 README.md
+**/docker-kube
+!**/docker-kube/000-default.conf
 
 # Ignore development-related files and directories
 # For development environment, we will use mount bind to mount the source code to the container
