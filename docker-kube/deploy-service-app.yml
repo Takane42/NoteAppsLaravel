@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: note-app
+  namespace: note-app
+  labels:
+    app: note-app
+    env: production
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: note-app
+  template:
+    metadata:
+      labels:
+        app: note-app
+        env: production
+    spec:
+      containers:
+        - name: note-app
+          image: ghcr.io/takane42/noteappslaravel:1.0
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          envFrom:
+          - secretRef:
+              name: note-app-env-production
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: note-app-service
+spec:
+  type: NodePort
+  selector:
+    app: note-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
