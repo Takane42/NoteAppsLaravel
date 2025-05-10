@@ -1,0 +1,22 @@
+services:
+  app:
+    image: ghcr.io/takane42/noteappslaravel:1.0
+    build:
+      context: .
+      dockerfile: ./docker-kube/Dockerfile
+    ports:
+      - "8080:80"
+    volumes:
+      - ./.env.docker:/var/www/html/.env
+    
+  db:
+    image: mariadb:10.4
+    # ports:
+    #   - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: laravel-gent
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - ./docker-kube/db:/var/lib/mysql
